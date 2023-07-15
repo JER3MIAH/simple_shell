@@ -1,16 +1,36 @@
 #include "main.h"
 
 /**
- * main - check the code
- * @agv: The argument vector
- * @agc: The argument count.
- * @env: The environment variable
+ * main - The main funcion
+ * @argc: argument count
+ * @argv: argument vector
  *
- * Return: 0.
+ * Return: Returns 0
  */
-int main(int agc, char **agv, char **envp)
+
+int main(int argc, char **argv)
 {
-	if (agc == 1)
-		prompt(agv, envp);
+	char *cmd;
+	/*Declaring cvoid variables*/
+	(void)argc;
+	(void)argv;
+
+	if (isatty(STDIN_FILENO))
+	{
+		while (1) /*create an infinite loop*/
+		{
+			display_prompt();
+			cmd = read_cmd();
+			if (cmd == NULL)
+			{
+				break;
+			}
+		}
+	}
+	else
+	{
+		/*Non interactive mode*/
+	}
+
 	return (0);
 }
