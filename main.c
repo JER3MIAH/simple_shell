@@ -31,6 +31,11 @@ int main(int argc, char **argv)
 	else
 	{
 		/*Non interactive mode*/
+		while ((cmd = read_cmd()) != NULL)
+		{
+			execute_cmd(cmd);
+			free(cmd);
+		}
 	}
 
 	return (0);
