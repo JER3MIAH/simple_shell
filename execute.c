@@ -20,6 +20,7 @@ void execute_cmd(char *cmd)
 		child_id = fork();
 		if (child_id == 0)
 		{
+			cmd = cmd_path(cmd);
 			execve(cmd, argv, NULL);
 			perror("execution failed");
 			free(argv);
