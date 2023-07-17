@@ -17,16 +17,14 @@ char *read_cmd(void)
 	if (read_chars == -1)
 	{
 		printf("Exiting the shell...\n");
-		return (NULL);
 		free(buff);
+		return (NULL);
 	}
 	else if (read_chars == 0)
 	{
-		return (buff);
 		free(buff);
+		return (buff);
 	}
-
-	printf("%s\n", buff);
 
 	return (buff);
 }

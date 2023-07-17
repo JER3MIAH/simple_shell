@@ -9,10 +9,11 @@
 
 char **tokenize_cmd(char *cmd)
 {
-	char **buff_copy; /*holds a copy of or string(buff)*/
+	char **buff_copy = NULL; /*holds a copy of or string(buff)*/
 	char *delim = " \n";
 	char *token;
 	int i = 0;
+	int j;
 	int size = 1;
 
 	buff_copy = malloc(size * sizeof(char *));
@@ -35,12 +36,17 @@ char **tokenize_cmd(char *cmd)
 		if (buff_copy == NULL)
 		{
 			perror("memory allocation failed");
+			for (j = 0; j < i; j++)
+			{
+				free(buff_copy[j]);
+			}
+			free(buff_copy);
+			free(token);
 			exit(EXIT_FAILURE);
 		}
-
 		token = strtok(NULL, delim);
 	}
 	buff_copy[i] = NULL;
-
+	free(token); /*free the last token*/
 	return (buff_copy);
 }

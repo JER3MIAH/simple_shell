@@ -26,6 +26,7 @@ int main(int argc, char **argv)
 				break;
 			}
 			execute_cmd(cmd);
+			free(cmd);
 		}
 	}
 	else
