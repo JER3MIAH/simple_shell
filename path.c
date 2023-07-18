@@ -17,13 +17,11 @@ char *cmd_path(char *cmd)
 	struct stat buff;
 
 	path = getenv("PATH");
-	
 	if (path != NULL)
 	{
 		path_copy = strdup(path);
 		cmd_lenght = strlen(cmd);
 		path_token = strtok(path_copy, ":");
-
 		while (path_token != NULL)
 		{
 			dir_length = strlen(path_token);
@@ -45,13 +43,9 @@ char *cmd_path(char *cmd)
 			}
 		}
 		free(path_copy);
-
 		if (stat(cmd, &buff) == 0)
-		{
 			return (cmd);
-		}
-
-		return(NULL);
+		return (NULL);
 	}
 	return (NULL);
 }

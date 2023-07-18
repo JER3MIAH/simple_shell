@@ -14,15 +14,21 @@ void execute_cmd(char *cmd)
 	int i;
 
 	argv = tokenize_cmd(cmd); /*tokenizes the command*/
-
 	if (argv)
 	{
+		if (strcmp(argv[0], "exit") == 0)/*checks if the cmd is "exit"*/
+		{
+			for (i = 0; argv[i] != NULL; i++)
+				free(argv[i]);
+			free(argv);
+			exit(0); /*exit the shell*/
+		}
 		child_id = fork();
 		if (child_id == 0)
 		{
 			cmd = cmd_path(cmd);
 			execve(cmd, argv, NULL);
-			perror("execution failed");
+			perror("Error");
 			free(argv);
 			exit(EXIT_FAILURE);
 		}
@@ -33,18 +39,12 @@ void execute_cmd(char *cmd)
 			exit(EXIT_FAILURE);
 		}
 		else /*parent process*/
-		{
 			waitpid(child_id, &status, 0);
-		}
 	}
 	else
-	{
 		fprintf(stderr, "Command not found: %s\n", cmd);
-	}
 
 	for (i = 0; argv[i] != NULL; i++)
-	{
 		free(argv[i]);
-	}
 	free(argv);
 }
