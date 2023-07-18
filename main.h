@@ -16,5 +16,6 @@ char *read_cmd(void);
 char **tokenize_cmd(char *cmd);
 void execute_cmd(char *cmd);
 char *cmd_path(char *cmd);
+void get_environment(void);
 
 #endif
