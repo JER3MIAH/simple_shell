@@ -20,10 +20,10 @@ char *read_cmd(void)
 		free(buff);
 		exit(EXIT_SUCCESS); /*exits the shell*/
 	}
-	else if (read_chars == 1 && buff[0] == '\n') /* Only '\n' is read (empty input) */
+	else if (read_chars == 1 && buff[0] == '\n') /*(empty input) */
 	{
 		free(buff);
-		return NULL; /* Return NULL for empty input */
+		return (NULL); /* Return NULL for empty input */
 	}
 
 	return (buff);
