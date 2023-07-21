@@ -18,12 +18,12 @@ char *read_cmd(void)
 	{
 		printf("Exiting the shell...\n");
 		free(buff);
-		return (NULL);
+		exit(EXIT_SUCCESS); /*exits the shell*/
 	}
-	else if (read_chars == 0)
+	else if (read_chars == 1 && buff[0] == '\n') /* Only '\n' is read (empty input) */
 	{
 		free(buff);
-		return (buff);
+		return NULL; /* Return NULL for empty input */
 	}
 
 	return (buff);

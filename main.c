@@ -23,7 +23,8 @@ int main(int argc, char **argv)
 			cmd = read_cmd();
 			if (cmd == NULL)
 			{
-				break;
+				free(cmd);
+				continue;
 			}
 			execute_cmd(cmd);
 			free(cmd);

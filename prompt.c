@@ -9,5 +9,5 @@ void display_prompt(void)
 {
 	char *prompt = "(J^H)$ ";
 
-	printf("%s", prompt);
+	printf("%s", prompt); /*displays prompt*/
 }
