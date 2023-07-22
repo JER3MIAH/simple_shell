@@ -16,27 +16,11 @@ void execute_cmd(char *cmd)
 	argv = tokenize_cmd(cmd); /*tokenizes the command*/
 	if (argv)
 	{
-		if (strcmp(argv[0], "exit") == 0)/*checks if the cmd is "exit"*/
+		if (execute_builtin_cmd(argv))
 		{
-			if (argv[1] != NULL) /* checks if an argument is provided after 'exit' */
-				exit(atoi(argv[1])); /*exits the shell with the inputed status*/
 			for (i = 0; argv[i] != NULL; i++)
 				free(argv[i]);
 			free(argv);
-			exit(0); /*exit the shell*/
-		}
-		else if (strcmp(argv[0], "env") == 0)/*checks if the cmd is "exit"*/
-		{
-			get_environment();
-			for (i = 0; argv[i] != NULL; i++)
-				free(argv[i]);
-			free(argv);
-			return;
-		}
-		else if (strcmp(argv[0], "cd") == 0)
-		{
-			/* Execute the cd command with the argument provided (argv[1]) */
-			execute_cd(argv[1]);
 			return;
 		}
 		child_id = fork();
@@ -66,6 +50,35 @@ void execute_cmd(char *cmd)
 }
 
 /**
+ * execute_builtin_cmd - executes the built-in command provided by the user
+ * @argv: argument vector. array of strings
+ *
+ * Return: 1 if the command is a built-in command, 0 otherwise
+ */
+int execute_builtin_cmd(char **argv)
+{
+	if (strcmp(argv[0], "exit") == 0)
+	{
+		if (argv[1] != NULL) /* checks if an argument is provided after 'exit' */
+			exit(atoi(argv[1])); /* exits the shell with the input status */
+		exit(0); /* exit the shell */
+	}
+	else if (strcmp(argv[0], "env") == 0)
+	{
+		get_environment();
+		return (1);
+	}
+	else if (strcmp(argv[0], "cd") == 0)
+	{
+		/* Execute the cd command with the argument provided (argv[1]) */
+		execute_cd(argv[1]);
+		return (1);
+	}
+
+	return (0);
+}
+
+/**
  * execute_cd - changes the current directory of the process
  * @dir: the directory to change to
  */
@@ -75,7 +88,6 @@ void execute_cd(char *dir)
 	char *new_dir;
 
 	prev_dir = getcwd(NULL, 0); /* Get the current working directory */
-
 	if (dir == NULL || strcmp(dir, "~") == 0)
 	{
 		/* If no directory is given or "~" is provided, go to home directory */
@@ -87,9 +99,7 @@ void execute_cd(char *dir)
 		new_dir = getenv("OLDPWD");
 	}
 	else
-	{
 		new_dir = dir;
-	}
 	if (chdir(new_dir) == -1)
 	{
 		perror("cd");
@@ -112,6 +122,5 @@ void execute_cd(char *dir)
 			return;
 		}
 	}
-
 	free(prev_dir); /* Free the memory used for the previous directory */
 }

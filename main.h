@@ -18,5 +18,6 @@ void execute_cmd(char *cmd);
 char *cmd_path(char *cmd);
 void get_environment(void);
 void execute_cd(char *dir);
+int execute_builtin_cmd(char **argv);
 
 #endif
