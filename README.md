@@ -10,7 +10,7 @@ A function to get the PATH was created by declaring a variable to which we will 
 the variable <path_copy> to which our duplicate was assigned was splited using the strtok function andt was separated with a delimeter (:), another variable was created to hold the return value of the strtok (A function that splits or breaks down string into a series of tokens using the delimiter) which was named <token_path>.
 
 A command to handle argument for built in exit was created using the atoi function (A function that coverts string to interger) to use an interger to exit the shell and also implemented an environment built in command that prints the current environment.
-compilation was done with the gcc -wall-werror-wextra-pedantic-std, and was named hsh (filename). The hsh filename was invoked by compiling all the .c files and run the executable results.
+compilation was done with the gcc -wall-werror-wextra-pedantic-std, and was named hsh (filename). The hsh filename was invoked by compiling all the .c files and run the executable results. The hsh could be revoked interactively and non-interactively.
 
 #conclusion
 
