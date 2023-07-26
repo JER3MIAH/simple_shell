@@ -8,21 +8,26 @@
 
 char *read_cmd(void)
 {
-	char *buff = NULL; /*stores the address of the buffer*/
-	size_t n = 0; /*stores alocated size in bytes*/
-	ssize_t read_chars; /*holds the return value of getline function*/
+	char *buff = NULL; /* stores the address of the buffer */
+	size_t n = 0; /* stores allocated size in bytes */
+	ssize_t read_chars; /* holds the return value of getline function */
 
-	read_chars = getline(&buff, &n, stdin);
+	while (1)
+	{
+		read_chars = getline(&buff, &n, stdin);
 
-	if (read_chars == -1)
-	{
+		if (read_chars == -1)
+		{
+			free(buff);
+			exit(EXIT_SUCCESS); /* exits the shell */
+		}
+		else if (read_chars > 1 && (buff[0] != ' ' && buff[0] != '\t'))
+		{
+			break; /* Break out of the loop for non-empty input */
+		}
+
 		free(buff);
-		exit(EXIT_SUCCESS); /*exits the shell*/
-	}
-	else if (read_chars == 1 && buff[0] == '\n') /*(empty input) */
-	{
-		free(buff);
-		return (NULL); /* Return NULL for empty input */
+		buff = NULL; /*Set to NULL to avoid double freeing */
 	}
 
 	return (buff);
