@@ -3,7 +3,7 @@
 /**
  * execute_cmd - executes the command provided by the user
  * @cmd: the command to be executed
- *
+ * Return: exit success
  */
 
 int execute_cmd(char *cmd)

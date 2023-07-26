@@ -35,7 +35,7 @@ int main(int argc, char **argv)
 
 /**
  * interactive_mode - Run the shell in interactive mode.
- * @exit_status: Pointer to the exit status.
+ *
  */
 void interactive_mode(void)
 {
