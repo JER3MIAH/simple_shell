@@ -10,7 +10,7 @@
 
 int main(int argc, char **argv)
 {
-	char *cmd;
+	char *cmd = NULL;
 	/*Declaring cvoid variables*/
 	(void)argc;
 	(void)argv;
@@ -29,10 +29,12 @@ int main(int argc, char **argv)
 			if (strcmp(cmd, "exit\n") == 0) /* check for "exit" command */
 			{
 				free(cmd);
+				cmd = NULL;
 				break; /* break out of the loop to terminate the shell */
 			}
 			execute_cmd(cmd);
 			free(cmd);
+			cmd = NULL;
 		}
 	}
 	else

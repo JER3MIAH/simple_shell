@@ -51,13 +51,17 @@ void execute_external_cmd(char **argv)
 
 		if (cmd_path_result == NULL)
 		{
-			char *error_msg = concat_paths(argv[0], ": 1: ");
+			/* Print the error message in the specified format */
+			char *program_name = argv[0];
+			char *error_msg = concat_paths("./hsh: ", "1: ");
 			char not_found_msg[] = ": not found\n";
 
 			write(STDERR_FILENO, error_msg, strlen(error_msg));
-			write(STDERR_FILENO, argv[0], strlen(argv[0]));
+			write(STDERR_FILENO, program_name, strlen(program_name));
 			write(STDERR_FILENO, not_found_msg, sizeof(not_found_msg) - 1);
+
 			free(error_msg);
+
 			free_argv(argv);
 			exit(EXIT_FAILURE);
 		}
