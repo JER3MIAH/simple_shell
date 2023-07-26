@@ -13,6 +13,6 @@ A command to handle argument for built in exit was created using the atoi functi
 
 #conclusion
 
-We learned and experienced how shll works and creating, forking and working with processes. Executing a program from another program handling memory allocation in the program.
+We learned and experienced how shell work, we also able to create, fork() and work with processes. Executing a program from another program handling memory allocation in the program.
 
 About simple shell team project.
