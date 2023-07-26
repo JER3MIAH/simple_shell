@@ -47,6 +47,5 @@ char **tokenize_cmd(char *cmd)
 		token = strtok(NULL, delim);
 	}
 	buff_copy[i] = NULL;
-	free(token); /*free the last token*/
 	return (buff_copy);
 }

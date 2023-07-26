@@ -42,8 +42,11 @@ void execute_cmd(char *cmd)
 			waitpid(child_id, &status, 0);
 	}
 	else
-		fprintf(stderr, "Command not found: %s\n", cmd);
-
+	{
+		write(STDERR_FILENO, "Command not found: ", 19);
+		write(STDERR_FILENO, cmd, strlen(cmd));
+		write(STDERR_FILENO, "\n", 1);
+	}
 	for (i = 0; argv[i] != NULL; i++)
 		free(argv[i]);
 	free(argv);

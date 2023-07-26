@@ -7,10 +7,14 @@
 void get_environment(void)
 {
 	int i = 0;
+	char *env_var;
 
-	while (environ[i] != NULL)
+	while ((env_var = environ[i]) != NULL)
 	{
-		printf("%s\n", environ[i]);
+		size_t len = strlen(env_var);
+
+		write(STDOUT_FILENO, env_var, len);
+		write(STDOUT_FILENO, "\n", 1);
 		i++;
 	}
 }

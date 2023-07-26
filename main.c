@@ -26,6 +26,11 @@ int main(int argc, char **argv)
 				free(cmd);
 				continue;
 			}
+			if (strcmp(cmd, "exit\n") == 0) /* check for "exit" command */
+			{
+				free(cmd);
+				break; /* break out of the loop to terminate the shell */
+			}
 			execute_cmd(cmd);
 			free(cmd);
 		}

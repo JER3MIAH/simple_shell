@@ -16,7 +16,6 @@ char *read_cmd(void)
 
 	if (read_chars == -1)
 	{
-		printf("Exiting the shell...\n");
 		free(buff);
 		exit(EXIT_SUCCESS); /*exits the shell*/
 	}
