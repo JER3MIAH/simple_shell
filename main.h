@@ -11,10 +11,13 @@
 #include <string.h>
 
 /*Function prototypes*/
+void sigint_handler(int sig);
+void interactive_mode(void);
+void non_interactive_mode(int *exit_status);
 void display_prompt(void);
 char *read_cmd(void);
 char **tokenize_cmd(char *cmd);
-void execute_cmd(char *cmd);
+int execute_cmd(char *cmd);
 char *cmd_path(char *cmd);
 void get_environment(void);
 void execute_cd(char *dir);

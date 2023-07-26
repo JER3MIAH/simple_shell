@@ -6,7 +6,7 @@
  *
  */
 
-void execute_cmd(char *cmd)
+int execute_cmd(char *cmd)
 {
 	char **argv;
 	int i;
@@ -19,7 +19,7 @@ void execute_cmd(char *cmd)
 			for (i = 0; argv[i] != NULL; i++)
 				free(argv[i]);
 			free(argv);
-			return;
+			return (EXIT_SUCCESS);
 		}
 		execute_external_cmd(argv);
 	}
@@ -28,10 +28,12 @@ void execute_cmd(char *cmd)
 		write(STDERR_FILENO, "Command not found: ", 19);
 		write(STDERR_FILENO, cmd, strlen(cmd));
 		write(STDERR_FILENO, "\n", 1);
+		return (EXIT_FAILURE);
 	}
 	for (i = 0; argv[i] != NULL; i++)
 		free(argv[i]);
 	free(argv);
+	return (EXIT_SUCCESS);
 }
 
 /**
