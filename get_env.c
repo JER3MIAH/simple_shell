@@ -1,5 +1,4 @@
 #include "main.h"
-#include "env.h"
 
 /**
  * get_environment - displays the current environment variables
