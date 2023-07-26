@@ -49,3 +49,27 @@ char *cmd_path(char *cmd)
 	}
 	return (NULL);
 }
+
+/**
+ * concat_paths - Concatenate two strings
+ * @path1: the first path
+ * @path2: the second path
+ *
+ * Return: A pointer to the new concatenated string, or NULL on failure
+ */
+char *concat_paths(const char *path1, const char *path2)
+{
+	size_t len1 = strlen(path1);
+	size_t len2 = strlen(path2);
+	char *result = malloc(len1 + len2 + 1);
+
+	if (result == NULL)
+	{
+		perror("malloc");
+		return (NULL);
+	}
+
+	strcpy(result, path1);
+	strcat(result, path2);
+	return (result);
+}

@@ -8,8 +8,6 @@
 
 void execute_cmd(char *cmd)
 {
-	pid_t child_id;
-	int status; /*stores the exit status of child process*/
 	char **argv;
 	int i;
 
@@ -23,23 +21,7 @@ void execute_cmd(char *cmd)
 			free(argv);
 			return;
 		}
-		child_id = fork();
-		if (child_id == 0)
-		{
-			cmd = cmd_path(cmd);
-			execve(cmd, argv, NULL);
-			perror("Error");
-			free(argv);
-			exit(EXIT_FAILURE);
-		}
-		else if (child_id == -1)
-		{
-			perror("Fork failed");
-			free(argv);
-			exit(EXIT_FAILURE);
-		}
-		else /*parent process*/
-			waitpid(child_id, &status, 0);
+		execute_external_cmd(argv);
 	}
 	else
 	{
@@ -51,6 +33,66 @@ void execute_cmd(char *cmd)
 		free(argv[i]);
 	free(argv);
 }
+
+/**
+ * execute_external_cmd - executes the external command provided by the user
+ * @argv: argument vector. array of strings
+ *
+ */
+void execute_external_cmd(char **argv)
+{
+	pid_t child_id;
+	int status; /*stores the exit status of child process*/
+
+	child_id = fork();
+	if (child_id == 0)
+	{
+		char *cmd_path_result = cmd_path(argv[0]);
+
+		if (cmd_path_result == NULL)
+		{
+			char *error_msg = concat_paths(argv[0], ": 1: ");
+			char not_found_msg[] = ": not found\n";
+
+			write(STDERR_FILENO, error_msg, strlen(error_msg));
+			write(STDERR_FILENO, argv[0], strlen(argv[0]));
+			write(STDERR_FILENO, not_found_msg, sizeof(not_found_msg) - 1);
+			free(error_msg);
+			free_argv(argv);
+			exit(EXIT_FAILURE);
+		}
+		execve(cmd_path_result, argv, NULL);
+		perror("Error");
+		free(cmd_path_result);
+		free_argv(argv);
+		exit(EXIT_FAILURE);
+	}
+	else if (child_id == -1)
+	{
+		perror("Fork failed");
+		free_argv(argv);
+		exit(EXIT_FAILURE);
+	}
+	else /*parent process*/
+	{
+		waitpid(child_id, &status, 0);
+	}
+}
+
+/**
+ * free_argv - frees the memory allocated for the argument vector
+ * @argv: argument vector. array of strings
+ *
+ */
+void free_argv(char **argv)
+{
+	int i;
+
+	for (i = 0; argv[i] != NULL; i++)
+		free(argv[i]);
+	free(argv);
+}
+
 
 /**
  * execute_builtin_cmd - executes the built-in command provided by the user
