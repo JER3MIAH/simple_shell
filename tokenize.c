@@ -9,6 +9,7 @@
 char **tokenize_cmd(char *cmd)
 {
 	char *cmd_copy = strdup(cmd);
+	char **buff_copy;
 
 	if (cmd_copy == NULL)
 	{
@@ -16,7 +17,7 @@ char **tokenize_cmd(char *cmd)
 		exit(EXIT_FAILURE);
 	}
 
-	char **buff_copy = tokenize_helper(cmd_copy);
+	buff_copy = tokenize_helper(cmd_copy);
 
 	return (buff_copy);
 }
