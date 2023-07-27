@@ -64,7 +64,6 @@ void execute_external_cmd(char **argv)
 
 		free(error_msg);
 
-		free(cmd_path_result);
 		return;
 	}
 	child_id = fork();
@@ -84,8 +83,11 @@ void execute_external_cmd(char **argv)
 		exit(EXIT_FAILURE);
 	}
 	else /* parent process */
+	{
 		waitpid(child_id, &status, 0);
-	free(cmd_path_result);
+		free(cmd_path_result);
+	}
+
 }
 
 /**
