@@ -1,7 +1,7 @@
 #INRODUCTION
 ===============
 
-A simple shell project created by JEREMIAH OWOADE and ABDULLATEEF ADELUOLA HAFSORH. The simple shell is a collaborative project, the project is to create a shell that mimics the bash shell. The shell is command line interface(CLI) program that takes command from the user and give them to the operating system(OS) to perform.The shell project was completed with C programming language, it was complied with the gcc complier, and it was styled and documented with Betty style and documentation.
+A simple shell project created by`. The simple shell is a collaborative project, the project is to create a shell that mimics the bash shell. The shell is command line interface(CLI) program that takes command from the user and give them to the operating system(OS) to perform.The shell project was completed with C programming language, it was complied with the gcc complier, and it was styled and documented with Betty style and documentation.
 
 #SUMMARY
 ================
