@@ -64,7 +64,7 @@ void execute_external_cmd(char **argv)
 
 		free(error_msg);
 
-		free(cmd_path_result);
+		free_argv(argv);
 		return;
 	}
 	child_id = fork();
