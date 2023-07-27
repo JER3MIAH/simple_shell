@@ -68,7 +68,6 @@ void execute_external_cmd(char **argv, char *buff)
 			write(STDERR_FILENO, not_found_msg, sizeof(not_found_msg) - 1);
 
 			free(error_msg);
-
 			free_argv(argv);
 			free(buff);
 			exit(EXIT_FAILURE);
@@ -88,9 +87,7 @@ void execute_external_cmd(char **argv, char *buff)
 		exit(EXIT_FAILURE);
 	}
 	else /*parent process*/
-	{
 		waitpid(child_id, &status, 0);
-	}
 }
 
 /**
