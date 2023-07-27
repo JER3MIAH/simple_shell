@@ -23,7 +23,7 @@ int execute_cmd(char *cmd);
 char *cmd_path(char *cmd);
 void get_environment(void);
 void execute_cd(char *dir);
-void execute_external_cmd(char **argv);
+void execute_external_cmd(char **argv, char *buff);
 void free_argv(char **argv);
 int execute_builtin_cmd(char **argv);
 extern char **environ;

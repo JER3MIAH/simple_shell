@@ -28,7 +28,7 @@ int execute_cmd(char *cmd)
 			free(argv);
 			return (EXIT_SUCCESS);
 		}
-		execute_external_cmd(argv);
+		execute_external_cmd(argv, cmd);
 	}
 	else
 	{
@@ -46,7 +46,7 @@ int execute_cmd(char *cmd)
  * @argv: argument vector. array of strings
  *
  */
-void execute_external_cmd(char **argv)
+void execute_external_cmd(char **argv, char *buff)
 {
 	pid_t child_id;
 	int status; /*stores the exit status of child process*/
@@ -70,17 +70,20 @@ void execute_external_cmd(char **argv)
 			free(error_msg);
 
 			free_argv(argv);
+			free(buff);
 			exit(EXIT_FAILURE);
 		}
-		execve(cmd_path_result, argv, NULL);
+		execve(cmd_path_result, argv, environ);
 		perror("Error");
 		free(cmd_path_result);
+		free(buff);
 		free_argv(argv);
 		exit(EXIT_FAILURE);
 	}
 	else if (child_id == -1)
 	{
 		perror("Fork failed");
+		free(buff);
 		free_argv(argv);
 		exit(EXIT_FAILURE);
 	}
