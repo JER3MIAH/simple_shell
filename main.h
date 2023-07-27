@@ -9,8 +9,10 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <string.h>
+#include <ctype.h>
 
 /*Function prototypes*/
+char *trim_whitespace(char *str);
 void sigint_handler(int sig);
 void interactive_mode(void);
 void non_interactive_mode(int *exit_status);

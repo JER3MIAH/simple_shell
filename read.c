@@ -21,13 +21,18 @@ char *read_cmd(void)
 			free(buff);
 			exit(EXIT_SUCCESS); /* exits the shell */
 		}
-		else if (read_chars > 1 && (buff[0] != ' ' && buff[0] != '\t'))
+		else if (read_chars > 1 && buff[0] != '\n')
 		{
 			break; /* Break out of the loop for non-empty input */
 		}
 
-		free(buff);
-		buff = NULL; /*Set to NULL to avoid double freeing */
+		if (buff[0] == '\n')
+		{
+			free(buff);
+			buff = NULL;
+			display_prompt();
+			continue;
+		}
 	}
 
 	return (buff);

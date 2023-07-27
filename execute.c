@@ -11,8 +11,15 @@ int execute_cmd(char *cmd)
 	char **argv;
 	int i;
 
-	argv = tokenize_cmd(cmd); /*tokenizes the command*/
-	if (argv)
+	cmd = trim_whitespace(cmd);
+
+	if (strlen(cmd) == 0)
+	{
+		return (EXIT_SUCCESS);
+	}
+
+	argv = tokenize_cmd(cmd); /* Tokenizes the command */
+	if (argv && argv[0])
 	{
 		if (execute_builtin_cmd(argv))
 		{
@@ -25,9 +32,7 @@ int execute_cmd(char *cmd)
 	}
 	else
 	{
-		write(STDERR_FILENO, "Command not found: ", 19);
-		write(STDERR_FILENO, cmd, strlen(cmd));
-		write(STDERR_FILENO, "\n", 1);
+		write(STDERR_FILENO, "Command not found\n", 18);
 		return (EXIT_FAILURE);
 	}
 	for (i = 0; argv[i] != NULL; i++)
