@@ -19,6 +19,5 @@ compilation was done with the gcc -wall-werror-wextra-pedantic-std, and was name
 ======================
 
 We learned and experienced how shell work, we also able to create, fork() and work with processes. Execute a program from one  program to another, handle memory allocation and memory leaks in the program.
-======================
 
 About simple shell collaborative projects.
