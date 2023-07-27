@@ -1,13 +1,11 @@
 #INRODUCTION
 ===============
-A simple shell project created by JEREMIAH OWOADE and ABDULLATEEF ADELUOLA HAFSORH. The simple shell is a collaborative project, the project is to create a shell mimics the bash shell.
 
-The shell is command line interface(CLI) program that takes command from the user and give them to the operating system(OS) to perform.
-
-The shell project was completed with C programming language, it was complied with the gcc complier, and it was styled and documented with Betty style and documentation.
+A simple shell project created by JEREMIAH OWOADE and ABDULLATEEF ADELUOLA HAFSORH. The simple shell is a collaborative project, the project is to create a shell mimics the bash shell. The shell is command line interface(CLI) program that takes command from the user and give them to the operating system(OS) to perform.The shell project was completed with C programming language, it was complied with the gcc complier, and it was styled and documented with Betty style and documentation.
 
 #SUMMARY
 ================
+
 We created a shell command that prompt the user to type a command and read input from the user, an infinite loop was included in order to prompt the user  to type in more commands and an end of file condition which allow the user to exit the shell.
 The user input was parsed and tokenized (Split or break down the command). The user input and out was handled and managed using the fork (A function that creates a new process) and execve (The function is used to execute the program and replaces the current process) function.
 
@@ -18,7 +16,9 @@ A command to handle argument for built in exit was created using the atoi functi
 compilation was done with the gcc -wall-werror-wextra-pedantic-std, and was named hsh (filename). The hsh filename was invoked by compiling all the .c files and run the executable results. The hsh could be revoked interactively and non-interactively.
 
 #CONCLUSION
-=============
+======================
+
 We learned and experienced how shell work, we also able to create, fork() and work with processes. Execute a program from one  program to another, handle memory allocation and memory leaks in the program.
-===============
+======================
+
 About simple shell collaborative projects.
