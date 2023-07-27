@@ -61,9 +61,7 @@ void execute_external_cmd(char **argv)
 		write(STDERR_FILENO, error_msg, strlen(error_msg));
 		write(STDERR_FILENO, program_name, strlen(program_name));
 		write(STDERR_FILENO, not_found_msg, sizeof(not_found_msg) - 1);
-
 		free(error_msg);
-
 		return;
 	}
 	child_id = fork();
