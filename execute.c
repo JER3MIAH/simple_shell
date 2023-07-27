@@ -44,7 +44,7 @@ int execute_cmd(char *cmd)
 /**
  * execute_external_cmd - executes the external command provided by the user
  * @argv: argument vector. array of strings
- *
+ * @buff: command taken
  */
 void execute_external_cmd(char **argv, char *buff)
 {
