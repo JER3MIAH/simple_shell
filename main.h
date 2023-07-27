@@ -19,7 +19,6 @@ void non_interactive_mode(int *exit_status);
 void display_prompt(void);
 char *read_cmd(void);
 char **tokenize_cmd(char *cmd);
-char **tokenize_helper(char *cmd_copy);
 int execute_cmd(char *cmd);
 char *cmd_path(char *cmd);
 void get_environment(void);

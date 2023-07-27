@@ -35,7 +35,9 @@ int execute_cmd(char *cmd)
 		write(STDERR_FILENO, "Command not found\n", 18);
 		return (EXIT_FAILURE);
 	}
-
+	for (i = 0; argv[i] != NULL; i++)
+		free(argv[i]);
+	free(argv);
 	return (EXIT_SUCCESS);
 }
 
@@ -46,27 +48,30 @@ int execute_cmd(char *cmd)
  */
 void execute_external_cmd(char **argv)
 {
-	int status; /* stores the exit status of child process */
 	pid_t child_id;
+	int status; /*stores the exit status of child process*/
 
-	char *cmd_path_result = cmd_path(argv[0]);
-
-	if (cmd_path_result == NULL)
-	{
-		/* Print the error message in the specified format */
-		char *program_name = argv[0];
-		char *error_msg = concat_paths("./hsh: ", "1: ");
-		char not_found_msg[] = ": not found\n";
-
-		write(STDERR_FILENO, error_msg, strlen(error_msg));
-		write(STDERR_FILENO, program_name, strlen(program_name));
-		write(STDERR_FILENO, not_found_msg, sizeof(not_found_msg) - 1);
-		free(error_msg);
-		return;
-	}
 	child_id = fork();
 	if (child_id == 0)
 	{
+		char *cmd_path_result = cmd_path(argv[0]);
+
+		if (cmd_path_result == NULL)
+		{
+			/* Print the error message in the specified format */
+			char *program_name = argv[0];
+			char *error_msg = concat_paths("./hsh: ", "1: ");
+			char not_found_msg[] = ": not found\n";
+
+			write(STDERR_FILENO, error_msg, strlen(error_msg));
+			write(STDERR_FILENO, program_name, strlen(program_name));
+			write(STDERR_FILENO, not_found_msg, sizeof(not_found_msg) - 1);
+
+			free(error_msg);
+
+			free_argv(argv);
+			exit(EXIT_FAILURE);
+		}
 		execve(cmd_path_result, argv, NULL);
 		perror("Error");
 		free(cmd_path_result);
@@ -76,16 +81,13 @@ void execute_external_cmd(char **argv)
 	else if (child_id == -1)
 	{
 		perror("Fork failed");
-		free(cmd_path_result);
 		free_argv(argv);
 		exit(EXIT_FAILURE);
 	}
-	else /* parent process */
+	else /*parent process*/
 	{
 		waitpid(child_id, &status, 0);
-		free(cmd_path_result);
 	}
-
 }
 
 /**
