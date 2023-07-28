@@ -21,7 +21,7 @@ int execute_cmd(char *cmd)
 	argv = tokenize_cmd(cmd); /* Tokenizes the command */
 	if (argv && argv[0])
 	{
-		if (execute_builtin_cmd(argv))
+		if (execute_builtin_cmd(cmd))
 		{
 			for (i = 0; argv[i] != NULL; i++)
 				free(argv[i]);
@@ -111,18 +111,17 @@ void free_argv(char **argv)
  *
  * Return: 1 if the command is a built-in command, 0 otherwise
  */
-int execute_builtin_cmd(char **argv)
+int execute_builtin_cmd(char *cmd)
 {
-	if (strcmp(argv[0], "exit") == 0)
+	if (strcmp(cmd, "exit") == 0)
 	{
-		free_argv(argv);
-		exit(0); /* exit the shell */
+		free(cmd);
+		return (1); /* exit the shell */
 	}
-	else if (strcmp(argv[0], "env") == 0)
+	else if (strcmp(cmd, "env") == 0)
 	{
 		get_environment();
-		free_argv(argv);
-		return (1);
+		return (0);
 	}
 
 	return (0);
