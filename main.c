@@ -10,7 +10,6 @@
 
 int main(int argc, char **argv)
 {
-	int exit_status = 0;
 	struct sigaction sa;
 	/*Declaring cvoid variables*/
 	(void)argc;
@@ -27,10 +26,10 @@ int main(int argc, char **argv)
 	}
 	else
 	{
-		non_interactive_mode(&exit_status);
+		non_interactive_mode();
 	}
 
-	return (exit_status);
+	return (0);
 }
 
 /**
@@ -50,7 +49,8 @@ void interactive_mode(void)
 			free(cmd);
 			continue;
 		}
-		if (strcmp(cmd, "exit\n") == 0) /* check for "exit" command */
+		trim_whitespace(cmd);
+		if (strcmp(cmd, "exit") == 0) /* check for "exit" command */
 		{
 			free(cmd);
 			break; /* break out of the loop to terminate the shell */
@@ -62,22 +62,16 @@ void interactive_mode(void)
 
 /**
  * non_interactive_mode - Run the shell in non-interactive mode.
- * @exit_status: Pointer to the exit status.
+ *
  */
-void non_interactive_mode(int *exit_status)
+void non_interactive_mode(void)
 {
 	char *cmd;
 
 	while ((cmd = read_cmd()) != NULL)
 	{
-		int status = execute_cmd(cmd);
-
+		execute_cmd(cmd);
 		free(cmd);
-		if (status != 0)
-		{
-			*exit_status = status;
-			break;
-		}
 	}
 }
 
