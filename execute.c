@@ -21,14 +21,15 @@ int execute_cmd(char *cmd)
 	argv = tokenize_cmd(cmd); /* Tokenizes the command */
 	if (argv && argv[0])
 	{
-		if (execute_builtin_cmd(cmd))
+		if (execute_builtin_cmd(argv[0]))
 		{
 			for (i = 0; argv[i] != NULL; i++)
 				free(argv[i]);
 			free(argv);
 			return (EXIT_SUCCESS);
 		}
-		execute_external_cmd(argv, cmd);
+		else
+			execute_external_cmd(argv, cmd);
 	}
 	else
 	{
@@ -115,7 +116,6 @@ int execute_builtin_cmd(char *cmd)
 {
 	if (strcmp(cmd, "exit") == 0)
 	{
-		free(cmd);
 		return (1); /* exit the shell */
 	}
 	else if (strcmp(cmd, "env") == 0)
@@ -126,4 +126,3 @@ int execute_builtin_cmd(char *cmd)
 
 	return (0);
 }
-
