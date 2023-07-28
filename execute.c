@@ -73,7 +73,7 @@ void execute_external_cmd(char **argv, char *buff)
 			free(buff);
 			exit(EXIT_FAILURE);
 		}
-		execve(cmd_path_result, argv, environ);
+		execve(cmd_path_result, argv, NULL);
 		perror("Error");
 		free(cmd_path_result);
 		free(buff);
