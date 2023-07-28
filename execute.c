@@ -107,7 +107,7 @@ void free_argv(char **argv)
 
 /**
  * execute_builtin_cmd - executes the built-in command provided by the user
- * @argv: argument vector. array of strings
+ * @cmd: command
  *
  * Return: 1 if the command is a built-in command, 0 otherwise
  */
